@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<!--
 <view class="container">
   <view  bindtap="bindViewTap" class="userinfo">
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
@@ -6,5 +7,54 @@
   </view>
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
+  </view>
+</view>
+-->
+<view class="container">
+  <!-- <view class="row">
+    <text class="title_text">Verbum</text>
+  </view> -->
+  <view class="row">
+    <text class="title_text">题图 (可选)</text>
+  </view>
+  <view class="row">
+    <image bindtap="tapToSelectImage" style="width: 300px; height: 100px; background-color: #FFFFFF; border: 1px solid lightgray" mode="{{word_image_mode}}" src="{{word_image_src}}"></image>
+  </view>
+  <!-- <view class="row">
+    <picker bindchange="bindImageModePickerChange" value="0" range="{{imageModeList}}" range-key="name">
+    <view class="picker">
+      Image Mode: {{imageModeList[imageModeIndex]['name']}}
+    </view>
+  </picker>
+  </view> -->
+  <view class="row">
+    <text class="title_text">标题 (可选)</text>
+  </view>
+  <view class="row">
+    <input name="input_title" bindinput="bindTitleKeyInput" style="" />
+  </view>
+  <view class="row">
+    <text class="title_text">内容</text>
+  </view>
+  <view class="row">
+    <textarea name="input_content" cursor-spacing="5" bindinput="bindContentKeyInput" />
+  </view>
+  <view class="row">
+    <text class="title_text">签名 (可选)</text>
+  </view>
+  <view class="row">
+    <input name="input_signature" bindinput="bindSignatureKeyInput" />
+  </view>
+  <view class="row">
+    <button bindtap="bindTapOnMake"> 生成 </button>
+  </view>
+  <view class="centered_row">
+    <canvas style="width: 300px; height: 500px;" canvas-id="TheCanvas"></canvas>
+  </view>
+  <view class="row">
+    <button bindtap="bindShareImage" open-type="share"> 分享 </button>
+  </view>
+  <view class="row">
+    <button bindtap="bindSaveImage"> 保存 </button>
   </view>
 </view>

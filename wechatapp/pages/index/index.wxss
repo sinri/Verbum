@@ -19,3 +19,26 @@
 .usermotto {
   margin-top: 200px;
 }
+
+.row {
+  display: block;
+  margin: 10px 5px;
+}
+.centered_row {
+  display: block;
+  margin: 10px 5px;
+  border: 1px solid black;
+  align-items: center;
+}
+
+.title_text {
+  align-items: center;
+}
+
+input {
+  border: 1px solid lightgray;
+}
+
+textarea {
+  border: 1px solid lightgray;
+}
