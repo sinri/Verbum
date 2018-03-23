@@ -54,6 +54,7 @@ class FontKit
      */
     public function initialize(){
         $fonts=[];
+        $defaultFontName='';
         if(file_exists(__DIR__.'/../config/fonts.php')){
             require __DIR__.'/../config/fonts.php';
         }
@@ -62,10 +63,10 @@ class FontKit
                 unset($fonts[$key]);
             }
         }
-        $fonts['CNS11643中文標準交換碼全字庫']=__DIR__.'/../../assets/fonts/TW-Kai-98_1.ttf';
+        //$fonts['CNS11643中文標準交換碼全字庫']=__DIR__.'/../../assets/fonts/TW-Kai-98_1.ttf';
 
         $this->fonts=$fonts;
-        $this->defaultFont=__DIR__.'/../../assets/fonts/TW-Kai-98_1.ttf';
+        $this->defaultFont=$fonts[$fonts[$defaultFontName]];//__DIR__.'/../../assets/fonts/TW-Kai-98_1.ttf';
     }
 
     /**
