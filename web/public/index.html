@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verbum</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview/dist/styles/iview.css">
+    <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
+    <script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
+    <style>
+        form > div {
+            margin: 5px;
+        }
+        img.preview_img {
+            border: 5px solid lightskyblue;
+            border-radius: 5px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div style="margin: 10px;">
+        <h1>Verbum <small style="font-style: italic;color:gray">Making Old Writing Works</small></h1>
+    </div>
+    <div style="margin: 10px;">
+        <i-form :label-width="60">
+            <Row>
+                <i-col span="12">
+                    <form-item label="title">
+                        <i-input placeholder="title (optional)" v-model="draft.title.text"/>
+                    </form-item>
+                </i-col>
+                <i-col span="6">
+                    <form-item label="font">
+                        <i-select v-model="draft.title.font">
+                            <i-option v-for="font in fonts" :value="font"></i-option>
+                        </i-select>
+                    </form-item>
+                </i-col>
+                <i-col span="3">
+                    <form-item label="color">
+                        <color-picker v-model="draft.title.color" recommend/>
+                    </form-item>
+                </i-col>
+                <i-col span="3">
+                    <form-item label="size">
+                        <input-number min="1" v-model="draft.title.size"/>
+                    </form-item>
+                </i-col>
+            </Row>
+            <Row>
+                <i-col span="12">
+                    <form-item label="content">
+                        <i-input type="textarea" placeholder="content (optional)" v-model="draft.content.text"/>
+                    </form-item>
+                </i-col>
+                <i-col span="6">
+                    <form-item label="font">
+                        <i-select v-model="draft.content.font">
+                            <i-option v-for="font in fonts" :value="font"></i-option>
+                        </i-select>
+                    </form-item>
+                </i-col>
+                <i-col span="3">
+                    <form-item label="color">
+                        <color-picker v-model="draft.content.color" recommend/>
+                    </form-item>
+                </i-col>
+                <i-col span="3">
+                    <form-item label="size">
+                        <input-number min="1" v-model="draft.content.size"/>
+                    </form-item>
+                </i-col>
+            </Row>
+            <Row>
+                <i-col span="12">
+                    <form-item label="inscription">
+                        <i-input placeholder="inscription (optional)" v-model="draft.inscription.text"/>
+                    </form-item>
+                </i-col>
+                <i-col span="6">
+                    <form-item label="font">
+                        <i-select v-model="draft.inscription.font">
+                            <i-option v-for="font in fonts" :value="font"></i-option>
+                        </i-select>
+                    </form-item>
+                </i-col>
+                <i-col span="3">
+                    <form-item label="color">
+                        <color-picker v-model="draft.inscription.color" recommend/>
+                    </form-item>
+                </i-col>
+                <i-col span="3">
+                    <form-item label="size">
+                        <input-number min="1" v-model="draft.inscription.size"/>
+                    </form-item>
+                </i-col>
+            </Row>
+            <Row v-if="showMoreSettings">
+                <i-col span="4">
+                    <form-item label="paper width" label-width="120">
+                        <input-number min="1" v-model="draft.paper.width"/>
+                    </form-item>
+                </i-col>
+                <i-col span="4">
+                    <form-item label="paper height" label-width="120">
+                        <input-number min="1" v-model="draft.paper.height"/>
+                    </form-item>
+                </i-col>
+                <i-col span="4">
+                    <form-item label="paper background color" label-width="150">
+                        <color-picker v-model="draft.paper.color" recommend/>
+                    </form-item>
+                </i-col>
+                <i-col span="4">
+                    <form-item label="Line Distance" label-width="120">
+                        <input-number :max="100" v-model="draft.paper.line_distance_rate"
+                                :formatter="value => `${value}%`"
+                                :parser="value => value.replace('%', '')"></input-number>
+                    </form-item>
+                </i-col>
+                <i-col span="4">
+                    <form-item label="Char Distance" label-width="120">
+                        <input-number :max="100" v-model="draft.paper.char_distance_rate"
+                                      :formatter="value => `${value}%`"
+                                      :parser="value => value.replace('%', '')"></input-number>
+                    </form-item>
+                </i-col>
+                <i-col span="4">
+                    &nbsp;
+                </i-col>
+            </Row>
+            <Row v-if="showMoreSettings">
+                <i-col span="4">
+                    <form-item label="Margin Top" label-width="120">
+                        <input-number min="0" v-model="draft.paper.margin_top"/>
+                    </form-item>
+                </i-col>
+                <i-col span="4">
+                    <form-item label="Margin Bottom" label-width="120">
+                        <input-number min="0" v-model="draft.paper.margin_bottom"/>
+                    </form-item>
+                </i-col>
+                <i-col span="4">
+                    <form-item label="Margin Left" label-width="120">
+                        <input-number min="0" v-model="draft.paper.margin_left"/>
+                    </form-item>
+                </i-col>
+                <i-col span="4">
+                    <form-item label="Margin Right" label-width="120">
+                        <input-number min="0" v-model="draft.paper.margin_right"/>
+                    </form-item>
+                </i-col>
+            </Row>
+            <Row>
+                <i-col span="18">
+                    Show More Settings <i-switch v-model="showMoreSettings"></i-switch>
+                </i-col>
+                <i-col span="6">
+                    <form-item label="">
+                        <i-button type="submit" @click="preview" :loading="loadingPreview" >Submit</i-button>
+                    </form-item>
+                </i-col>
+            </Row>
+        </i-form>
+    </div>
+    <div style="margin: 10px;" v-if="previewBase64!='' && !loadingPreview">
+        <Row>
+            <i-col span="24" style="text-align: center">
+                <h2>Preview</h2>
+            </i-col>
+        </Row>
+        <Row>
+            <i-col span="8" style="text-align: center">
+                &nbsp;
+            </i-col>
+            <i-col span="8" style="text-align: center">
+                <img :src="'data:image/png;base64,'+previewBase64" class="preview_img"/>
+            </i-col>
+            <i-col span="8" style="text-align: center">
+                &nbsp;
+            </i-col>
+        </Row>
+    </div>
+</div>
+<script>
+    let app=new Vue({
+        el: '#app',
+        data: {
+            fonts:[],
+            draft:{
+                paper:{
+                    width:750,
+                    height:1334,
+                    color:'#FFFFFF',
+                    line_distance_rate:50,
+                    char_distance_rate:20,
+                    margin_top:50,
+                    margin_bottom:50,
+                    margin_left:100,
+                    margin_right:100,
+                },
+                title: {
+                    text: '',//'抬頭',
+                    font: '',
+                    size: 50,
+                    color:'#000000',
+                },
+                content:{
+                    text: '',//'我是虛無的內容',
+                    font: '',
+                    size: 50,
+                    color:'#000000',
+                },
+                inscription:{
+                    text:'',//'落款',
+                    font: '',
+                    size: 50,
+                    color:'#000000',
+                }
+            },
+            previewBase64:'',
+            loadingPreview:false,
+            showMoreSettings:false,
+        },
+        methods: {
+            loadFonts:function () {
+                axios({
+                    method:'get',
+                    url:'fontList.php'
+                }).then((response)=>{
+                    console.log('then',response);
+                    this.fonts=response.data.data.list;
+                    if(this.fonts.length){
+                        this.draft.title.font=this.fonts[0];
+                        this.draft.content.font=this.fonts[0];
+                        this.draft.inscription.font=this.fonts[0];
+                    }
+                }).catch((error)=>{
+                    console.log('catch',error);
+                    this.fonts='';
+                });
+            },
+            preview:function () {
+                let data={
+                    output_base64:1,
+                    paper_width:this.draft.paper.width,
+                    paper_height:this.draft.paper.height,
+                    paper_background_color:this.draft.paper.color,
+                    line_distance_rate:this.draft.paper.line_distance_rate/100.0,
+                    char_distance_rate:this.draft.paper.char_distance_rate/100.0,
+                    margin_top:this.draft.paper.margin_top,
+                    margin_bottom:this.draft.paper.margin_bottom,
+                    margin_left:this.draft.paper.margin_left,
+                    margin_right:this.draft.paper.margin_right,
+                    title:this.draft.title.text,
+                    content:this.draft.content.text,
+                    inscription:this.draft.inscription.text,
+                    title_font:this.draft.title.font,
+                    content_font:this.draft.content.font,
+                    inscription_font:this.draft.inscription.font,
+                    title_font_size:this.draft.title.size,
+                    content_font_size:this.draft.content.size,
+                    inscription_font_size:this.draft.inscription.size,
+                    title_color:this.draft.title.color,
+                    content_color:this.draft.content.color,
+                    inscription_color:this.draft.inscription.color,
+                };
+                this.loadingPreview=true;
+                axios({
+                    method: 'post',
+                    url: 'draw.php',
+                    data: data
+                }).then((response)=>{
+                    console.log('then',response);
+                    this.previewBase64=response.data;
+                    this.loadingPreview=false;
+                }).catch((error)=>{
+                    console.log('catch',error);
+                    this.previewBase64='iVBORw0KGgoAAAANSUhEUgAAAJAAAACQAQMAAADdiHD7AAAABlBMVEUAAABTU1OoaSf/AAAAAXRSTlMAQObYZgAAAFJJREFUeF7t0cENgDAMQ9FwYgxG6WjpaIzCCAxQxVggFuDiCvlLOeRdHR9yzjncHVoq3npu+wQUrUuJHylSTmBaespJyJQoObUeyxDQb3bEm5Au81c0pSCD8HYAAAAASUVORK5CYII=';
+                    this.loadingPreview=false;
+                });
+
+            }
+        },
+        mounted:function () {
+            this.loadFonts();
+        }
+    })
+</script>
+</body>
+</html>
