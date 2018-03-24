@@ -11,6 +11,8 @@ namespace sinri\Verbum\workshop;
 
 class FontKit
 {
+    const SAMPLE_KANJI='草';
+
     /**
      * @var string[] name -> path
      */
@@ -66,7 +68,7 @@ class FontKit
         //$fonts['CNS11643中文標準交換碼全字庫']=__DIR__.'/../../assets/fonts/TW-Kai-98_1.ttf';
 
         $this->fonts=$fonts;
-        $this->defaultFont=$fonts[$fonts[$defaultFontName]];//__DIR__.'/../../assets/fonts/TW-Kai-98_1.ttf';
+        $this->defaultFont=$fonts[$defaultFontName];//__DIR__.'/../../assets/fonts/TW-Kai-98_1.ttf';
     }
 
     /**
@@ -85,17 +87,21 @@ class FontKit
         return array_keys($this->fonts);
     }
 
+    public static function autoGetFontRealSize($font,$userWantSize){
+        return self::getFontRealSize(self::SAMPLE_KANJI,$font,$userWantSize);
+    }
+
     /**
      * @param string $char
      * @param string $font
      * @param float $userWantSize
      * @return float
      */
-    public static function getFontRealSize($char,$font,$userWantSize){
-        //$char = '莉';
+    protected static function getFontRealSize($char,$font,$userWantSize){
         $char=mb_substr($char,0,1);
 
         $w=self::computeWidthForGuessSize($char,$font,$userWantSize);
+//        echo __METHOD__.'@'.__LINE__.' by computeWidthForGuessSize ユーザが指定したボックスのサイズ('.$userWantSize.')に対するGDのサイズ = '.$w.PHP_EOL;
         if(abs($w-$userWantSize)<1){
             return $w;
         }
@@ -104,6 +110,7 @@ class FontKit
         $max=$userWantSize*2;
         while(true) {
             $aBigSize=self::computeWidthForGuessSize($char, $font, $max);
+//            echo __METHOD__.'@'.__LINE__.' GDのサイズ ('.$max.') leads to box size = '.$aBigSize.' >>> '.$userWantSize.PHP_EOL;
             if($aBigSize>$userWantSize){
                 break;
             }
@@ -119,27 +126,33 @@ class FontKit
     }
 
     protected static function binarySeek($char,$font,$minRealSize,$maxRealSize,$userWantSize){
-        if(($maxRealSize-$minRealSize)<2){
-            return ($maxRealSize-$minRealSize)/2;
+        $middleGDSize=($minRealSize+$maxRealSize)/2;
+
+        if(($maxRealSize-$minRealSize)<1){
+//            echo date('H:i:s').'|'.__METHOD__." max<min, result = $middleGDSize".PHP_EOL;
+            return $middleGDSize;
         }
 
-        $middleW=self::computeWidthForGuessSize($char,$font,($minRealSize+$maxRealSize)/2);
+        $middleW=self::computeWidthForGuessSize($char,$font,$middleGDSize);
 
-//        echo __METHOD__." (".$minRealSize.",".$maxRealSize.") real ({$minW},{$maxW}) middle {$middleW} against requirement ".$userWantSize.PHP_EOL;
-//
-//        if(($maxRealSize-$minRealSize)<2){
+//        $minW=self::computeWidthForGuessSize($char,$font,($minRealSize));
+//        $maxW=self::computeWidthForGuessSize($char,$font,($maxRealSize));
+//        echo date('H:i:s').'|'.__METHOD__." (".$minRealSize.",".$maxRealSize.") real ({$minW},{$maxW}) middle {$middleW} against requirement ".$userWantSize.PHP_EOL;
+
+//        if(($maxRealSize-$minRealSize)<1){
 //            return ($maxRealSize-$minRealSize)/2;
 //        }
 
-        if(abs($userWantSize-$middleW)<2){
-            return ($minRealSize+$maxRealSize)/2;
+        if(abs($userWantSize-$middleW)<1){
+//            echo date('H:i:s').'|'.__METHOD__." abs<1, result = $middleGDSize".PHP_EOL;
+            return $middleGDSize;
         }
 
         if($middleW<$userWantSize){
             // 用户想要的尺寸 比 画出来的要大： 调大真实size
-            return self::binarySeek($char,$font,($minRealSize+$maxRealSize)/2,$maxRealSize,$userWantSize);
+            return self::binarySeek($char,$font,$middleGDSize,$maxRealSize,$userWantSize);
         }else{
-            return self::binarySeek($char,$font,$minRealSize,($minRealSize+$maxRealSize)/2,$userWantSize);
+            return self::binarySeek($char,$font,$minRealSize,$middleGDSize,$userWantSize);
         }
     }
 
@@ -150,7 +163,7 @@ class FontKit
     }
 
     public static function autoComputeWidthForGuessSize($font, $guessSize){
-        return self::computeWidthForGuessSize('莉',$font,$guessSize);
+        return self::computeWidthForGuessSize(self::SAMPLE_KANJI,$font,$guessSize);
     }
 
     /**
@@ -174,6 +187,6 @@ class FontKit
     }
 
     public static function autoComputeEnoughBlockWithGDSize($size,$font,&$w,&$h){
-        self::computeEnoughBlockWithGDSize("莉",$size,$font,$w,$h);
+        self::computeEnoughBlockWithGDSize(self::SAMPLE_KANJI,$size,$font,$w,$h);
     }
 }

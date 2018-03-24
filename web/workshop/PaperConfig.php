@@ -119,9 +119,9 @@ class PaperConfig
      * 只能跑一次的转义。。。
      */
     public function translateUserFontSizeToGDSize(){
-        $this->titleFontSize=FontKit::getFontRealSize('莉',$this->titleFont,$this->titleFontSize);
-        $this->contentFontSize=FontKit::getFontRealSize('莉',$this->contentFont,$this->contentFontSize);
-        $this->inscriptionFontSize=FontKit::getFontRealSize('莉',$this->inscriptionFont,$this->inscriptionFontSize);
+        $this->titleFontSize=FontKit::autoGetFontRealSize($this->titleFont,$this->titleFontSize);
+        $this->contentFontSize=FontKit::autoGetFontRealSize($this->contentFont,$this->contentFontSize);
+        $this->inscriptionFontSize=FontKit::autoGetFontRealSize($this->inscriptionFont,$this->inscriptionFontSize);
     }
 
     /**

@@ -63,6 +63,10 @@ class Drawer
         imagefill($this->img, 0, 0, $color);
     }
 
+//    protected function makeTextVertical($text){
+//        $text=str_replace('ー','丨',$text);
+//    }
+
     public function writeTitle($string,$color){
         FontKit::autoComputeEnoughBlockWithGDSize($this->paperConfig->getTitleFontSize(),$this->paperConfig->getTitleFont(),$charWidth,$charHeight);
         $baseLeftX=round($this->paperConfig->getWidth()-$this->paperConfig->getMarginRight()+($this->paperConfig->getMarginRight()-$charWidth)/2);
@@ -73,7 +77,12 @@ class Drawer
         while($i<mb_strlen($string)){
             if($i>$maxCharCount)break;
             $char=mb_substr($string,$i,1);
-            $this->writeChar($this->paperConfig->getTitleFontSize(),0,$baseLeftX,$baseBottomY,$color,$this->paperConfig->getTitleFont(),$char);
+
+            if(in_array($char,['ー'])) {
+                $this->writeChar($this->paperConfig->getTitleFontSize(), 90, $baseLeftX+$charWidth, $baseBottomY, $color, $this->paperConfig->getTitleFont(), $char);
+            }else{
+                $this->writeChar($this->paperConfig->getTitleFontSize(), 0, $baseLeftX, $baseBottomY, $color, $this->paperConfig->getTitleFont(), $char);
+            }
 
 //            echo __METHOD__.' Y='.$baseBottomY." char distance ".$this->paperConfig->getCharDistance($charHeight).PHP_EOL;
 
@@ -102,7 +111,12 @@ class Drawer
         while($i<mb_strlen($string)){
             if($i>$maxCharCount)break;
             $char=mb_substr($string,$i,1);
-            $this->writeChar($this->paperConfig->getInscriptionFontSize(),0,$baseLeftX,$baseBottomY,$color,$this->paperConfig->getInscriptionFont(),$char);
+
+            if(in_array($char,['ー'])){
+                $this->writeChar($this->paperConfig->getInscriptionFontSize(), 90, $baseLeftX+$charWidth, $baseBottomY, $color, $this->paperConfig->getInscriptionFont(), $char);
+            }else {
+                $this->writeChar($this->paperConfig->getInscriptionFontSize(), 0, $baseLeftX, $baseBottomY, $color, $this->paperConfig->getInscriptionFont(), $char);
+            }
 
             $baseBottomY+=$charHeight+$this->paperConfig->getCharDistance($charHeight);
 
@@ -139,7 +153,19 @@ class Drawer
             }
             $x=$baseLeftX-(($lineIndex-0)*$this->paperConfig->getLineDistance($charWidth)+($lineIndex+1)*$charWidth);
             $y=$baseBottomY+($charIndex-1)*$this->paperConfig->getCharDistance($charHeight)+$charIndex*$charHeight;
-            $this->writeChar($this->paperConfig->getContentFontSize(),0,$x,$y,$color,$this->paperConfig->getContentFont(),$char);
+
+            //居中补正的原理就是这样子 但是每个字体的着墨重心并不一致
+            /*
+            $guessBoxWidth=FontKit::computeWidthForGuessSize($char,$this->paperConfig->getContentFont(),$this->paperConfig->getContentFontSize());
+            if($guessBoxWidth<$charWidth*0.9){
+                $x+=($charWidth-$guessBoxWidth)/2;
+            }
+            */
+            if(in_array($char,['ー'])){
+                $this->writeChar($this->paperConfig->getContentFontSize(), 90, $x+$charWidth, $y, $color, $this->paperConfig->getContentFont(), $char);
+            }else {
+                $this->writeChar($this->paperConfig->getContentFontSize(), 0, $x, $y, $color, $this->paperConfig->getContentFont(), $char);
+            }
 
 //            echo __METHOD__.' Y='.$y." [{$char}] char distance ".$this->paperConfig->getCharDistance($charHeight).PHP_EOL;
 
