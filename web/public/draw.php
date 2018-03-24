@@ -76,7 +76,7 @@ if($marginLeft!==null)$paperConfig->setMarginLeft($marginLeft);
 if($marginRight!==null)$paperConfig->setMarginRight($marginRight);
 
 if(!$paperConfig->validate()){
-    echo "PAPER CONFIG INVALID!".PHP_EOL;
+    IOKit::sayFail("PAPER CONFIG INVALID!");
     exit;
 }
 $paperConfig->translateUserFontSizeToGDSize();
