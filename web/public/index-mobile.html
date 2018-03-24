@@ -179,12 +179,19 @@
                 </i-col>
             </Row>
             <Row style="border-top:1px solid gray;margin-top:10px;padding-top:10px">
-                <i-col span="12">
+                <i-col span="8">
                     <form-item :label="i18n(31)" label-width="50">
                         <i-switch v-model="showMoreSettings"></i-switch>
                     </form-item>
                 </i-col>
-                <i-col span="12">
+                <i-col span="6">
+                    <i-select v-model="draft.image_format">
+                        <i-option v-for="image_format_type in image_format_list" :value="image_format_type">
+                            {{image_format_type}}
+                        </i-option>
+                    </i-select>
+                </i-col>
+                <i-col span="10">
                     <form-item label="">
                         <i-button type="primary" @click="preview" :loading="loadingPreview">{{i18n(9)}}</i-button>
                     </form-item>
@@ -203,10 +210,10 @@
                 &nbsp;
             </i-col>
             <i-col span="8" style="text-align: center">
-                <img :src="'data:image/png;base64,'+previewBase64" class="preview_img"/>
+                <img :src="'data:image/'+draft.image_format+';base64,'+previewBase64" class="preview_img"/>
             </i-col>
             <i-col span="8" style="text-align: center">
-                &nbsp;
+                &nbsp;&nbsp;
             </i-col>
         </Row>
     </div>
@@ -226,6 +233,7 @@
         el: '#app',
         data: {
             fonts: [],
+            image_format_list: ['png', 'jpeg', 'gif'],
             draft: {
                 paper: {
                     width: 750,
@@ -255,7 +263,8 @@
                     font: '',
                     size: 50,
                     color: '#000000',
-                }
+                },
+                image_format: 'png'
             },
             previewBase64: '',
             loadingPreview: false,
@@ -284,6 +293,7 @@
             preview: function () {
                 let data = {
                     output_base64: 1,
+                    image_format: this.draft.image_format,
                     paper_width: this.draft.paper.width,
                     paper_height: this.draft.paper.height,
                     paper_background_color: this.draft.paper.color,

@@ -47,6 +47,8 @@ $marginBottom=IOKit::read('margin_bottom');
 $marginLeft=IOKit::read('margin_left');
 $marginRight=IOKit::read('margin_right');
 
+$imageFormat = IOKit::read('image_format', 'png');
+
 // debug
 if(false){
     echo '$outputAsBase64:'.json_encode($outputAsBase64).PHP_EOL;
@@ -102,12 +104,25 @@ if(IOKit::isValidString($inscription)){
 
 //exit;
 
+switch ($imageFormat) {
+    case 'jpeg':
+        $imageFormatType = IMAGETYPE_JPEG;
+        break;
+    case 'gif':
+        $imageFormatType = IMAGETYPE_GIF;
+        break;
+    case 'png':
+    default:
+        $imageFormatType = IMAGETYPE_PNG;
+        break;
+}
+
 if($outputAsBase64){
     ob_start();
-    $drawer->output(IMAGETYPE_PNG);
+    $drawer->output($imageFormatType);
     $raw = ob_get_contents();
     ob_end_clean();
     echo base64_encode($raw);
 }else {
-    $drawer->output(IMAGETYPE_PNG);
+    $drawer->output($imageFormatType);
 }
