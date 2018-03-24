@@ -4,5 +4,4 @@ protected/runtime/*
 protected/data/*.db
 themes/classic/views/
 /web/config/fonts.php
-/web/debug/
 /assets/
