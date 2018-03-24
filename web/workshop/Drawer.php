@@ -63,9 +63,10 @@ class Drawer
         imagefill($this->img, 0, 0, $color);
     }
 
-//    protected function makeTextVertical($text){
-//        $text=str_replace('ー','丨',$text);
-//    }
+    protected function charNeedRotate($char)
+    {
+        return in_array($char, ['ー', '(', ')', '（', '）']);
+    }
 
     public function writeTitle($string,$color){
         FontKit::autoComputeEnoughBlockWithGDSize($this->paperConfig->getTitleFontSize(),$this->paperConfig->getTitleFont(),$charWidth,$charHeight);
@@ -78,8 +79,8 @@ class Drawer
             if($i>$maxCharCount)break;
             $char=mb_substr($string,$i,1);
 
-            if(in_array($char,['ー'])) {
-                $this->writeChar($this->paperConfig->getTitleFontSize(), 90, $baseLeftX+$charWidth, $baseBottomY, $color, $this->paperConfig->getTitleFont(), $char);
+            if ($this->charNeedRotate($char)) {
+                $this->writeChar($this->paperConfig->getTitleFontSize(), 270, $baseLeftX + $charWidth / 4, $baseBottomY - $charHeight, $color, $this->paperConfig->getTitleFont(), $char);
             }else{
                 $this->writeChar($this->paperConfig->getTitleFontSize(), 0, $baseLeftX, $baseBottomY, $color, $this->paperConfig->getTitleFont(), $char);
             }
@@ -112,8 +113,8 @@ class Drawer
             if($i>$maxCharCount)break;
             $char=mb_substr($string,$i,1);
 
-            if(in_array($char,['ー'])){
-                $this->writeChar($this->paperConfig->getInscriptionFontSize(), 90, $baseLeftX+$charWidth, $baseBottomY, $color, $this->paperConfig->getInscriptionFont(), $char);
+            if ($this->charNeedRotate($char)) {
+                $this->writeChar($this->paperConfig->getInscriptionFontSize(), 270, $baseLeftX + $charWidth / 4, $baseBottomY - $charHeight, $color, $this->paperConfig->getInscriptionFont(), $char);
             }else {
                 $this->writeChar($this->paperConfig->getInscriptionFontSize(), 0, $baseLeftX, $baseBottomY, $color, $this->paperConfig->getInscriptionFont(), $char);
             }
@@ -161,8 +162,8 @@ class Drawer
                 $x+=($charWidth-$guessBoxWidth)/2;
             }
             */
-            if(in_array($char,['ー'])){
-                $this->writeChar($this->paperConfig->getContentFontSize(), 90, $x+$charWidth, $y, $color, $this->paperConfig->getContentFont(), $char);
+            if ($this->charNeedRotate($char)) {
+                $this->writeChar($this->paperConfig->getContentFontSize(), 270, $x + $charWidth / 4, $y - $charHeight, $color, $this->paperConfig->getContentFont(), $char);
             }else {
                 $this->writeChar($this->paperConfig->getContentFontSize(), 0, $x, $y, $color, $this->paperConfig->getContentFont(), $char);
             }
