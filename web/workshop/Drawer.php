@@ -63,9 +63,19 @@ class Drawer
         imagefill($this->img, 0, 0, $color);
     }
 
+    const ROTATE_CHARS = 'ー()（）“”[]{}【】‘’？?！!\~～@＠#＃%﹪&＆-－=＝<﹤|︳……^`-∕¦‖︴－／±㏒㏑∑∏√±∫∮∧∨＝≈≡≠＜＞≤≥≦≧≮≯º¹²³½¾¼％‰';
+
     protected function charNeedRotate($char)
     {
-        return in_array($char, ['ー', '(', ')', '（', '）']);
+        static $chars = null;
+        if ($chars === null) {
+            for ($i = 0; $i < mb_strlen(self::ROTATE_CHARS); $i++) {
+                $chars[] = mb_substr(self::ROTATE_CHARS, $i, 1);
+            }
+        }
+        return (
+            in_array($char, $chars) || preg_match('/^[A-Za-z0-9\-=\\/]$/', $char)
+        );
     }
 
     public function writeTitle($string,$color){
