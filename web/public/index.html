@@ -115,8 +115,8 @@
                 </i-col>
                 <i-col span="5">
                     <form-item :label="i18n(14)" label-width="120">
-                        <i-switch v-model="draft.paper.transparent"></i-switch>
-                        <color-picker v-if="draft.paper.transparent" v-model="draft.paper.color" recommend/>
+                        <i-switch v-model="draft.paper.not_transparent"></i-switch>
+                        <color-picker v-if="draft.paper.not_transparent" v-model="draft.paper.color" recommend/>
                     </form-item>
                 </i-col>
                 <i-col span="4">
@@ -211,7 +211,7 @@
                     width:750,
                     height:1334,
                     color:'#FFFFFF',
-                    transparent: false,
+                    not_transparent: false,
                     line_distance_rate:50,
                     char_distance_rate:20,
                     margin_top:50,
@@ -267,7 +267,7 @@
                     output_base64:1,
                     paper_width:this.draft.paper.width,
                     paper_height:this.draft.paper.height,
-                    paper_background_color: (this.draft.paper.transparent ? 'draft.paper.transparent' : this.draft.paper.color),
+                    paper_background_color: (this.draft.paper.not_transparent ? this.draft.paper.color : 'transparent'),
                     line_distance_rate:this.draft.paper.line_distance_rate/100.0,
                     char_distance_rate:this.draft.paper.char_distance_rate/100.0,
                     margin_top:this.draft.paper.margin_top,
