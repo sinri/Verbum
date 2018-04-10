@@ -90,7 +90,7 @@ if(false){
 
 $drawer= Drawer::createDrawerForEmptyPaper($paperConfig);
 if ($paperBackgroundColor === 'transparent') {
-    $drawer->setBackgroundColor($drawer->getColorKit()->rgba(255, 255, 255, 0));
+    $drawer->setBackgroundColor($drawer->getColorKit()->rgba(255, 255, 255, 127));
 } else {
     $drawer->setBackgroundColor($drawer->getColorKit()->hex($paperBackgroundColor));
 }
