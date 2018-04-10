@@ -89,7 +89,11 @@ if(false){
 }
 
 $drawer= Drawer::createDrawerForEmptyPaper($paperConfig);
-$drawer->setBackgroundColor($drawer->getColorKit()->hex($paperBackgroundColor));
+if ($paperBackgroundColor === 'transparent') {
+    $drawer->setBackgroundColor($drawer->getColorKit()->rgba(255, 255, 255, 0));
+} else {
+    $drawer->setBackgroundColor($drawer->getColorKit()->hex($paperBackgroundColor));
+}
 
 
 if(IOKit::isValidString($title)){
