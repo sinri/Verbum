@@ -113,27 +113,27 @@
                         <input-number min="1" v-model="draft.paper.height"/>
                     </form-item>
                 </i-col>
-                <i-col span="6">
-                    <form-item :label="i18n(13)+' '+i18n(14)" label-width="150">
+                <i-col span="5">
+                    <form-item :label="i18n(14)" label-width="120">
                         <i-switch v-model="draft.paper.transparent"></i-switch>
                         <color-picker v-if="draft.paper.transparent" v-model="draft.paper.color" recommend/>
                     </form-item>
                 </i-col>
-                <i-col span="3">
-                    <form-item :label="i18n(17)" label-width="80">
+                <i-col span="4">
+                    <form-item :label="i18n(17)" label-width="90">
                         <input-number :max="100" v-model="draft.paper.line_distance_rate"
                                 :formatter="value => `${value}%`"
                                 :parser="value => value.replace('%', '')"></input-number>
                     </form-item>
                 </i-col>
-                <i-col span="3">
-                    <form-item :label="i18n(18)" label-width="80">
+                <i-col span="4">
+                    <form-item :label="i18n(18)" label-width="90">
                         <input-number :max="100" v-model="draft.paper.char_distance_rate"
                                       :formatter="value => `${value}%`"
                                       :parser="value => value.replace('%', '')"></input-number>
                     </form-item>
                 </i-col>
-                <i-col span="4">
+                <i-col span="3">
                     &nbsp;
                 </i-col>
             </Row>
