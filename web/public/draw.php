@@ -108,6 +108,8 @@ if(IOKit::isValidString($inscription)){
 
 //exit;
 
+$drawer->keepAlphaForPng(true);
+
 switch ($imageFormat) {
     case 'jpeg':
         $imageFormatType = IMAGETYPE_JPEG;

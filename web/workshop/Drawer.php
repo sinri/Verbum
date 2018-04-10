@@ -63,6 +63,16 @@ class Drawer
         imagefill($this->img, 0, 0, $color);
     }
 
+    /**
+     * 设置保存PNG时保留透明通道信息
+     * @param bool $saveFlag
+     * @return bool
+     */
+    public function keepAlphaForPng($saveFlag)
+    {
+        return imagesavealpha($this->img, $saveFlag);
+    }
+
     const ROTATE_CHARS = 'ー()（）“”[]{}【】‘’？?！!\~～@＠#＃%﹪&＆-－=＝<﹤|︳……^`-∕¦‖︴－／±㏒㏑∑∏√±∫∮∧∨＝≈≡≠＜＞≤≥≦≧≮≯º¹²³½¾¼％‰';
 
     protected function charNeedRotate($char)
