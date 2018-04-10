@@ -113,21 +113,21 @@
                         <input-number min="1" v-model="draft.paper.height"/>
                     </form-item>
                 </i-col>
-                <i-col span="4">
+                <i-col span="6">
                     <form-item :label="i18n(13)+' '+i18n(14)" label-width="150">
                         <i-switch v-model="draft.paper.transparent"></i-switch>
                         <color-picker v-if="draft.paper.transparent" v-model="draft.paper.color" recommend/>
                     </form-item>
                 </i-col>
-                <i-col span="4">
-                    <form-item :label="i18n(17)" label-width="120">
+                <i-col span="3">
+                    <form-item :label="i18n(17)" label-width="80">
                         <input-number :max="100" v-model="draft.paper.line_distance_rate"
                                 :formatter="value => `${value}%`"
                                 :parser="value => value.replace('%', '')"></input-number>
                     </form-item>
                 </i-col>
-                <i-col span="4">
-                    <form-item :label="i18n(18)" label-width="120">
+                <i-col span="3">
+                    <form-item :label="i18n(18)" label-width="80">
                         <input-number :max="100" v-model="draft.paper.char_distance_rate"
                                       :formatter="value => `${value}%`"
                                       :parser="value => value.replace('%', '')"></input-number>
@@ -267,7 +267,7 @@
                     output_base64:1,
                     paper_width:this.draft.paper.width,
                     paper_height:this.draft.paper.height,
-                    paper_background_color: (this.draft.draft.paper.transparent ? 'draft.paper.transparent' : this.draft.paper.color),
+                    paper_background_color: (this.draft.paper.transparent ? 'draft.paper.transparent' : this.draft.paper.color),
                     line_distance_rate:this.draft.paper.line_distance_rate/100.0,
                     char_distance_rate:this.draft.paper.char_distance_rate/100.0,
                     margin_top:this.draft.paper.margin_top,
