@@ -1,8 +1,10 @@
 # Verbum
 
-[https://verbum.sinri.cc/](https://verbum.sinri.cc/)
+<del>[https://verbum.sinri.cc/](https://verbum.sinri.cc/) ← 这台服务器已经消失在中国梦中了</del>
 
-Making Old Writing Works
+[https://verbum.everstray.com](https://verbum.everstray.com) ← 目前使用这一域名
+
+Making Old-Style Writing Works
 
 
 # Fonts
@@ -24,3 +26,13 @@ Fonts might be used in this project are confirmed as FREE USE.
 * [和音Joyo-R, 勢蓮明朝トライアル-EL, 勢蓮呉竹トライアル-EL](http://www.typoren.com/trialfont.html) 本試用版書体は商用利用・非商用利用を問わず、ご自由にお使いいただけますが、フォントデータの改変・再配布は許諾いたしません。
 * [AOMEMOFONT](https://booth.pm/ja/items/118072) 個人利用、イベント頒布する同人誌、同人グッズなど、非営利な活動にご利用いただけます。
 * [はんなり明朝](http://typingart.net/?p=44)  Under License: [IPAフォントライセンスv1.0](http://ipafont.ipa.go.jp/ipa_font_license_v1.html)
+
+# Privacy Policy for Site and App
+
+This project would not record, nor use your input data for interests. 
+As you know, all activities on internet are with the risk to be seen by others, expected or not.
+So you should take the very responsibility to use this project and its service.
+
+本项目不会为了获利而记录使用你的输入数据。
+想必你应该知道，无论你的意愿如何，在互联网上的所有行为都有可能被第三方观测到的风险。
+因此你需要为自己使用本项目及服务而自负其责。
