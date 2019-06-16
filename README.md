@@ -26,6 +26,11 @@ Fonts might be used in this project are confirmed as FREE USE.
 * [和音Joyo-R, 勢蓮明朝トライアル-EL, 勢蓮呉竹トライアル-EL](http://www.typoren.com/trialfont.html) 本試用版書体は商用利用・非商用利用を問わず、ご自由にお使いいただけますが、フォントデータの改変・再配布は許諾いたしません。
 * [AOMEMOFONT](https://booth.pm/ja/items/118072) 個人利用、イベント頒布する同人誌、同人グッズなど、非営利な活動にご利用いただけます。
 * [はんなり明朝](http://typingart.net/?p=44)  Under License: [IPAフォントライセンスv1.0](http://ipafont.ipa.go.jp/ipa_font_license_v1.html)
+* [機械彫刻用標準書体-M-v0.25-JIS](https://font.kim) 機械彫刻用標準書体 M、3/4かな及び2/3かなは、印刷物、デジタルコンテンツ（動的に文字を出力する場合を含む。）等において、商用か非商用かを問わず、無償で使用できます。
+* [ラノベPOP](http://www.fontna.com/) このフォントのライセンスは、M+のライセンスに準じます。これらのフォントはフリー（自由な）ソフトウエアです。あらゆる改変の有無に関わらず、また商業的な利用であっても、自由にご利用、複製、再配布することができますが、全て無保証とさせていただきます。
+* [幻ノにじみ明朝](https://www.flopdesign.com) Under License: SIL Open Font License, Version 1.1
+
+...
 
 # Privacy Policy for Site and App
 

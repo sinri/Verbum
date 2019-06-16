@@ -6,3 +6,4 @@ themes/classic/views/
 /web/config/fonts.php
 /web/debug/*.png
 /assets/
+/temp
