@@ -15,6 +15,10 @@ $fonts=[
     'ラノべPOP' => __DIR__ . '/../../fonts/ラノべPOP.otf',
     '幻ノにじみ明朝' => __DIR__ . '/../../fonts/幻ノにじみ明朝.otf',
     'JIS-機械彫刻用標準書体-M' => __DIR__ . '/../../fonts/機械彫刻用標準書体-M-v0.25-JIS.otf',
+    '和音Joyo-R' => __DIR__ . '/../../fonts/和音Joyo-R.otf',
+    '藍原筆文字楷書（フリー版）' => __DIR__ . '/../../fonts/藍原筆文字楷書（フリー版）-ver-3.01.ttf',
+    'コーポレート・ロゴ（ラウンド）' => __DIR__ . '/../../fonts/コーポレート・ロゴ（ラウンド）-v1.ttf',
 ];
 
-$defaultFontName='CNS11643中文標準交換碼全字庫';
+//$defaultFontName='CNS11643中文標準交換碼全字庫';
+$defaultFontName = 'OradanoGSRR';
