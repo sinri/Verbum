@@ -1,10 +1,11 @@
 <?php
 
 use sinri\Verbum\workshop\FontKit;
+use sinri\Verbum\workshop\IOKit;
 
 require_once __DIR__ . '/../autoload.php';
-if (!empty($_REQUEST['font_name'])) {
-    $fontName = $_REQUEST['font_name'];
+$fontName = IOKit::read('font_name', false);
+if (!empty($fontName)) {
     $fontPath = FontKit::instance()->getFontByName($fontName);
 
     $size = filesize($fontPath);
