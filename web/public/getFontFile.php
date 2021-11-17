@@ -21,5 +21,5 @@ if (!empty($fontName)) {
     }
     fclose($handle);
 } else {
-    throw new InvalidArgumentException("font_name is not found");
+    throw new InvalidArgumentException("font_name is not found: " . file_get_contents("php://input"));
 }
