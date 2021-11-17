@@ -20,5 +20,17 @@ $fonts=[
     'コーポレート・ロゴ（ラウンド）' => __DIR__ . '/../../fonts/コーポレート・ロゴ（ラウンド）-v1.ttf',
 ];
 
+$fontRealNameDict = [
+    'OradanoGSRR' => "Oradano-mincho-GSRR",
+    '851マカポップ' => '851MkPOP',
+    'しょかきさらり行体' => 'ShokakiSarariGyotai',
+    'ラノべPOP' => '07LightNovelPOP',
+    '幻ノにじみ明朝' => 'MaboroshinoNijimiMincho',
+    'JIS-機械彫刻用標準書体-M' => 'KikaiChokokuJIS-Md',//family:'Kikai Chokoku JIS'
+    '和音Joyo-R' => 'WaonJoyo-R',
+    '藍原筆文字楷書（フリー版）' => 'AiharaHudemojiKaisho',
+    'コーポレート・ロゴ（ラウンド）' => 'Corporate-Logo-Rounded',// family:'Corporate Logo Rounded'
+];
+
 //$defaultFontName='CNS11643中文標準交換碼全字庫';
 $defaultFontName = 'OradanoGSRR';

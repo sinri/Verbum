@@ -22,6 +22,10 @@ class FontKit
      * @var string
      */
     protected $defaultFont;
+    /**
+     * @var array
+     */
+    protected $fontRealNameDict;
 
     /**
      * @return string
@@ -55,8 +59,9 @@ class FontKit
      * Load
      */
     public function initialize(){
-        $fonts=[];
-        $defaultFontName='';
+        $fonts = [];
+        $fontRealNameDict = [];
+        $defaultFontName = '';
         if(file_exists(__DIR__.'/../config/fonts.php')){
             require __DIR__.'/../config/fonts.php';
         }
@@ -67,8 +72,9 @@ class FontKit
         }
         //$fonts['CNS11643中文標準交換碼全字庫']=__DIR__.'/../../assets/fonts/TW-Kai-98_1.ttf';
 
-        $this->fonts=$fonts;
-        $this->defaultFont=$fonts[$defaultFontName];//__DIR__.'/../../assets/fonts/TW-Kai-98_1.ttf';
+        $this->fonts = $fonts;
+        $this->fontRealNameDict = $fontRealNameDict;
+        $this->defaultFont = $fonts[$defaultFontName];//__DIR__.'/../../assets/fonts/TW-Kai-98_1.ttf';
     }
 
     /**
@@ -76,19 +82,26 @@ class FontKit
      * @return string
      */
     public function getFontByName($name){
-        if(!isset($this->fonts[$name]))return $this->defaultFont;
+        if (!isset($this->fonts[$name])) return $this->defaultFont;
         return $this->fonts[$name];
     }
 
     /**
      * @return string[]
      */
-    public function getFontNameList(){
+    public function getFontNameList()
+    {
         return array_keys($this->fonts);
     }
 
-    public static function autoGetFontRealSize($font,$userWantSize){
-        return self::getFontRealSize(self::SAMPLE_KANJI,$font,$userWantSize);
+    public function getFontRealNameDict()
+    {
+        return $this->fontRealNameDict;
+    }
+
+    public static function autoGetFontRealSize($font, $userWantSize)
+    {
+        return self::getFontRealSize(self::SAMPLE_KANJI, $font, $userWantSize);
     }
 
     /**

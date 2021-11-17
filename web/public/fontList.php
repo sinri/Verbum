@@ -6,8 +6,13 @@
  * Time: 15:13
  */
 
-require_once __DIR__.'/../autoload.php';
+use sinri\Verbum\workshop\FontKit;
+use sinri\Verbum\workshop\IOKit;
 
-$fonts=\sinri\Verbum\workshop\FontKit::instance()->getFontNameList();
+require_once __DIR__ . '/../autoload.php';
+$fontKit = FontKit::instance();
 
-\sinri\Verbum\workshop\IOKit::sayOK(['list'=>$fonts]);
+IOKit::sayOK([
+    'list' => $fontKit->getFontNameList(),
+    'real_name_dict' => $fontKit->getFontRealNameDict(),
+]);
